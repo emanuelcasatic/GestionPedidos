@@ -1,4 +1,5 @@
 ﻿using System;
+using GestionPedidos.Data;
 
 namespace GestionPedidos
 {
@@ -6,7 +7,13 @@ namespace GestionPedidos
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("¡Hola, Mundo!");
+            var pedidoRepo = new PedidoRepository();
+            var lista = pedidoRepo.ObtenerPedidos();
+            foreach(var l in lista)
+            {
+                Console.WriteLine(l.Codigo);
+            }
+            
         }
     }
 }

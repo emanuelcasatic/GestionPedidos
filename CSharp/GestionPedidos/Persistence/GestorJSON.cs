@@ -6,7 +6,7 @@ namespace GestionPedidos.Persistence;
 
 public class GestorJSON
 {
-    private readonly string _rutaDeArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"\pedidos.json");
+    private readonly string _rutaDeArchivo = Path.Combine(AppContext.BaseDirectory, "pedidos.json");
 
     public List<Pedido> LeerPedidos()
     {
