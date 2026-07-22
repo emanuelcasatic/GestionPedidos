@@ -1,6 +1,7 @@
+using GestionPedidos.Models;
 using System;
 using System.Text.Json;
-using GestionPedidos.Models;
+using System.Text.Json.Serialization;
 
 namespace GestionPedidos.Persistence;
 
@@ -18,7 +19,14 @@ public class GestorJSON
 
             if(!string.IsNullOrWhiteSpace(jsonPedidos.Trim()))
             {
-                pedidos = JsonSerializer.Deserialize<List<Pedido>>(json: jsonPedidos, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                options.Converters.Add(new JsonStringEnumConverter());
+
+                pedidos = JsonSerializer.Deserialize<List<Pedido>>(jsonPedidos, options);
             }
 
             if(pedidos != null)
@@ -32,5 +40,33 @@ public class GestorJSON
         }
 
         return [];
+    }
+
+    public bool GuardarPedidos(List<Pedido> pedidos)
+    {
+        if (pedidos == null || pedidos.Count <= 0)
+        {
+            return false;
+        }
+
+        try
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNameCaseInsensitive = true
+            };
+            options.Converters.Add(new JsonStringEnumConverter());
+            string json = JsonSerializer.Serialize(pedidos, options);
+            using StreamWriter streamWriter = new(_rutaDeArchivo);
+            streamWriter.Write(json);
+            return true;
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            return false;
+        }
+       
     }
 }

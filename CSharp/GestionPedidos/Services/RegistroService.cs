@@ -7,11 +7,11 @@ using GestionPedidos.Models.Enums;
 namespace GestionPedidos.Services
 {
   
-    public class ServicioRegistro
+    public class RegistroService
     {
         private readonly PedidoRepository _repositorio;
 
-        public ServicioRegistro(PedidoRepository repositorio)
+        public RegistroService(PedidoRepository repositorio)
         {
             _repositorio = repositorio;
         }
@@ -40,9 +40,14 @@ namespace GestionPedidos.Services
             // El constructor de Pedido ya pone EstadoPedido.Pendiente por defecto
             var nuevoPedido = new Pedido(codigo, nombre, producto, cantidad, precio, tipoEntrega, fecha);
 
-            _repositorio.Agregar(nuevoPedido);
+            if (_repositorio.Agregar(nuevoPedido)) 
+            { 
+                Console.WriteLine($"Pedido '{codigo}' registrado correctamente. Total: {CalcularTotal(nuevoPedido):C}"); 
+            } else 
+            {
+                Console.WriteLine("Error al agregar.");
+            }
 
-            Console.WriteLine($"Pedido '{codigo}' registrado correctamente. Total: {CalcularTotal(nuevoPedido):C}");
         }
 
         // ---------------------------------------------------------
@@ -102,9 +107,16 @@ namespace GestionPedidos.Services
                 pedido.Codigo, nombre, producto, cantidad, precio,
                 tipoEntrega, fecha, pedido.EstadoPedido);
 
-            _repositorio.Reemplazar(pedidoActualizado);
+            if(_repositorio.Reemplazar(pedidoActualizado))
+            {
+                Console.WriteLine($"Pedido '{codigo}' actualizado. Nuevo total: {CalcularTotal(pedidoActualizado):C}");
+            }
+            else
+            {
+                Console.WriteLine("Error al actualizar");
+            }
 
-            Console.WriteLine($"Pedido '{codigo}' actualizado. Nuevo total: {CalcularTotal(pedidoActualizado):C}");
+            
         }
 
         // ---------------------------------------------------------
@@ -130,8 +142,15 @@ namespace GestionPedidos.Services
 
             if (confirmacion?.Trim().ToUpper() == "S")
             {
-                _repositorio.Eliminar(pedido);
-                Console.WriteLine("Pedido eliminado correctamente.");
+                if(_repositorio.Eliminar(pedido))
+                {
+                    Console.WriteLine("Pedido eliminado correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Error al eliminar.");
+                }
+                
             }
             else
             {
