@@ -6,19 +6,19 @@ namespace GestionPedidos.Persistence;
 
 public class GestorJSON
 {
-    private readonly string _rutaDeArchivo = Path.Combine(AppDomain.CurrentDomain, "pedidos.json");
+    private readonly string _rutaDeArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"\pedidos.json");
 
     public List<Pedido> LeerPedidos()
     {
         List<Pedido>? pedidos = null;
         try
         {
-            using StreamReader streamReader = new(_rutaDeArchivo, FileAccess.Read);
+            using StreamReader streamReader = new StreamReader(_rutaDeArchivo);
             string jsonPedidos = streamReader.ReadToEnd();
 
             if(!string.IsNullOrWhiteSpace(jsonPedidos.Trim()))
             {
-                pedidos = JsonSerializer.Deserialize<GestionPedidos>(jsonPedidos, JsonSerializerOptions.ReferenceEquals);
+                pedidos = JsonSerializer.Deserialize<List<Pedido>>(json: jsonPedidos, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
 
             if(pedidos != null)

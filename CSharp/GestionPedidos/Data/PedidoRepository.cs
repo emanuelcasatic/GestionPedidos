@@ -1,8 +1,8 @@
 using System;
-using GestorPedidos.Models;
-using GestorPedidos.Persistence;
+using GestionPedidos.Models;
+using GestionPedidos.Persistence;
 
-namespace GestorPedidos.Data;
+namespace GestionPedidos.Data;
 
 public class PedidoRepository
 {
