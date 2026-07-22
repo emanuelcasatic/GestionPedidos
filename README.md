@@ -1,2 +1,2 @@
 # GestionPedidos
-Poryecto colaborativo en C# y JS.
+Proyecto colaborativo en C# y JS.
