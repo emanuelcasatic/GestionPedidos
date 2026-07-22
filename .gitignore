@@ -1,0 +1,61 @@
+# Carpetas y archivos del sistema operativo.
+.DS_Store
+Thumbs.db
+
+# Configuración de editores.
+.vscode/
+*.sublime-workspace
+
+# Archivos temporales o de registro.
+*.log
+
+##   Core Build Artifacts & Output Directories
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+##   User-specific & IDE Environment Settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.iml
+
+##   Roslyn & Compiler Crash Dumps
+*.RoslynCA*
+*.nccrashfile
+
+##   NuGet Packages & Local Dependencies
+# Packages directory can be safely restored via 'dotnet restore'
+packages/
+!packages/repositories.config
+*.nuget.props
+*.nuget.targets
+
+##   Test Results & Code Coverage
+[Tt]est[Rr]esult*/
+*.sequenced
+*.coverage
+*.coveragexml
+
+##   Local Configuration & Secret Files
+# Protect environment variables and user secrets from being committed
+**/appsettings.Development.json
+**/appsettings.local.json
+**/launchSettings.json
+.env
+.env.*
+
+##   Publish & Deployment Outputs
+publish/
+*.Publish.xml
+*.pubxml
+*.azurePubxml
